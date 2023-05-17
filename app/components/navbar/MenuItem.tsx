@@ -1,13 +1,16 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { ComponentProps, FC } from "react";
+import clsx from "clsx";
 
-interface MenuItemProps {
+interface MenuItemProps extends ComponentProps<"div"> {
   label: string;
 }
-const MenuItem: FC<MenuItemProps> = ({ label }) => {
+const MenuItem: FC<MenuItemProps> = ({ label, className, ...rest }) => {
   return (
-    <div className={"font-bold hover:bg-gray-100 py-2 px-6 "}>{label}</div>
+    <div className={clsx("hover:bg-gray-100 py-2 px-6", className)} {...rest}>
+      {label}
+    </div>
   );
 };
 

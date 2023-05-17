@@ -5,10 +5,12 @@ import RoundedXWrapper from "@/app/components/navbar/RoundedXWrapper";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "@/app/components/avatar";
 import MenuItem from "@/app/components/navbar/MenuItem";
+import { useAuthModal } from "@/app/hooks";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { toggleAuthModal } = useAuthModal();
 
   useEffect(() => {
     let handler = (e: MouseEvent) => {
@@ -40,8 +42,12 @@ const UserMenu = () => {
         </RoundedXWrapper>
         {isOpen && (
           <div className="absolute md:right-10 xl:right-20 top-20 w-60 bg-white rounded-xl shadow-lg cursor-pointer py-1">
-            <MenuItem label={"Sign up"} />
-            <MenuItem label={"Login"} />
+            <MenuItem
+              label={"Sign up"}
+              className={"font-bold"}
+              onClick={toggleAuthModal}
+            />
+            <MenuItem label={"Login"} onClick={toggleAuthModal} />
           </div>
         )}
       </div>

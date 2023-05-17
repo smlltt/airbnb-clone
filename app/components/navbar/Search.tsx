@@ -21,7 +21,7 @@ const Search = () => {
       >
         <div className={"hidden sm:block"}>Add guests</div>
 
-        <div className="p-2 text-white rounded-full bg-rose-500 flex items-center justify-center">
+        <div className="p-2 text-white rounded-full bg-gradient-to-r from-rose-500 to-pink-600 flex items-center justify-center">
           <FaSearch />
         </div>
       </div>
