@@ -1,1 +1,1 @@
-export * from "./useAuthModal";
+export * from "./useRegisterModal";
