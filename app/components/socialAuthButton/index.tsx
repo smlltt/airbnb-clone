@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC } from "react";
 import Button from "@/app/components/button";
 import { IconType } from "react-icons";

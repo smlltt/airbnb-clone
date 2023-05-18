@@ -10,55 +10,53 @@ import * as z from "zod";
 import Form, { useZodForm } from "@/app/components/form";
 import InputField from "@/app/components/inputField";
 import { DEFAULT_ERROR, REQUIRED_FIELD } from "@/app/constants";
-import axios from "axios";
-import { FieldValues } from "react-hook-form";
-import toast from "react-hot-toast";
-import { getMinCharsMessage } from "@/app/utils";
 import Divider from "@/app/components/divider";
 import SocialAuthButton from "@/app/components/socialAuthButton";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 const schema = z.object({
-  name: z.string().nonempty(REQUIRED_FIELD),
   email: z.string().email().nonempty(REQUIRED_FIELD),
-  password: z.string().min(6, getMinCharsMessage(6)),
+  password: z.string().nonempty(REQUIRED_FIELD),
 });
 
-const RegisterModal: FC = () => {
-  const { open, toggleRegisterModal } = useRegisterModal();
-  const { toggleLoginModal } = useLoginModal();
+const LoginModal: FC = () => {
+  const { open, toggleLoginModal } = useLoginModal();
+  const { toggleRegisterModal } = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
   const form = useZodForm({
     schema,
   });
 
-  const handleRegister = async (values: FieldValues) => {
+  const handleLogin: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
+    const { email, password } = data;
     try {
-      await axios.post("/api/register", values);
-      toggleRegisterModal();
-      toggleLoginModal();
-      toast.success("Registration successful");
-    } catch (error: any) {
-      toast.error(error.response.data.message || DEFAULT_ERROR);
-      console.log("register error", error);
+      const res = await signIn("credentials", {
+        email,
+        password,
+      });
+      if (res?.error) {
+        toast.error(res.error);
+      }
+    } catch (error) {
+      toast.error(DEFAULT_ERROR);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <Modal open={open} onClose={toggleRegisterModal} title={"Sign up"}>
+    <Modal open={open} onClose={toggleLoginModal} title={"Log in"}>
       <div className={"text-2xl font-semibold"}>Welcome to Airbnb</div>
-      <div className={"font-light text-neutral-500 my-2"}>
-        Create an account
-      </div>
-      <Form form={form} onSubmit={handleRegister}>
-        <InputField label={"name"} {...form.register("name")} />
+      <div className={"font-light text-neutral-500 my-2"}>Log in</div>
+      <Form form={form} onSubmit={handleLogin}>
         <InputField label={"email"} {...form.register("email")} />
         <InputField
           label={"password"}
-          type={"password"}
           {...form.register("password")}
+          type={"password"}
         />
         <Button fullWidth className={"font-semibold"} disabled={isLoading}>
           Continue
@@ -78,19 +76,19 @@ const RegisterModal: FC = () => {
           "text-neutral-500 justify-center flex mt-4 text-sm font-light gap-1"
         }
       >
-        <div>Already have an account?</div>
+        <div>You don&apos;t have an account?</div>
         <div
           className={"cursor-pointer font-semibold"}
           onClick={() => {
-            toggleRegisterModal();
             toggleLoginModal();
+            toggleRegisterModal();
           }}
         >
-          Log in
+          Sign up
         </div>
       </div>
     </Modal>
   );
 };
 
-export default RegisterModal;
+export default LoginModal;

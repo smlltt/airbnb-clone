@@ -5,12 +5,16 @@ import RoundedXWrapper from "@/app/components/navbar/RoundedXWrapper";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "@/app/components/avatar";
 import MenuItem from "@/app/components/navbar/MenuItem";
-import { useRegisterModal } from "@/app/hooks";
+import { useLoginModal, useRegisterModal } from "@/app/hooks";
+import { signOut, useSession } from "next-auth/react";
 
 const UserMenu = () => {
+  const session = useSession();
+  console.log("session", session);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { toggleRegisterModal } = useRegisterModal();
+  const { toggleLoginModal } = useLoginModal();
 
   useEffect(() => {
     let handler = (e: MouseEvent) => {
@@ -47,7 +51,10 @@ const UserMenu = () => {
               className={"font-bold"}
               onClick={toggleRegisterModal}
             />
-            <MenuItem label={"Login"} />
+            <MenuItem label={"Login"} onClick={toggleLoginModal} />
+            {session.status === "authenticated" && (
+              <MenuItem label={"Logout"} onClick={() => signOut()} />
+            )}
           </div>
         )}
       </div>
