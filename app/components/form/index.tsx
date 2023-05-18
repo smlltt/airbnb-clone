@@ -42,7 +42,7 @@ export function FieldError({ name }: FieldErrorProps) {
   if (!error) return null;
 
   return (
-    <div className="text-sm text-red-500 font-bold">
+    <div className="absolute text-xs sm:text-sm text-red-500 font-bold">
       {error.message as string}
     </div>
   );
@@ -64,7 +64,7 @@ const Form = <T extends FieldValues>({
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} {...props}>
         <fieldset
-          className="flex flex-col space-y-4"
+          className="flex flex-col space-y-6"
           disabled={form.formState.isSubmitting}
         >
           {children}

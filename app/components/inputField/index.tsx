@@ -9,20 +9,30 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(function Input(
   { label, type = "text", ...props },
   ref
 ) {
+  const { name } = props;
+
   return (
-    <label>
-      <div className="font-medium text-gray-800 dark:text-gray-200 mb-1">
-        {label}
-      </div>
+    <div className="relative">
       <input
-        className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 w-full rounded-md px-4 py-2 border focus:border-brand-600 focus:ring-brand-500 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20"
-        type={type}
+        type="text"
+        id={name}
+        className={
+          "block px-2.5 pb-2.5  pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-gray-500 peer"
+        }
+        placeholder=" "
         ref={ref}
         {...props}
       />
-
-      <FieldError name={props.name} />
-    </label>
+      <label
+        htmlFor={name}
+        className={
+          "absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10  origin-[0]  bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-gray-500 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100  peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-placeholder-shown:-translate-y-1/2 left-1"
+        }
+      >
+        {label}
+      </label>
+      <FieldError name={name} />
+    </div>
   );
 });
 

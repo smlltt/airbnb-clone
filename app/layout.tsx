@@ -4,6 +4,7 @@ import React from "react";
 import Navbar from "@/app/components/navbar";
 import ClientOnly from "@/app/components/clientOnly";
 import RegisterModal from "@/app/components/registerModal";
+import ToasterProvider from "@/app/components/toasterProvider";
 
 export const metadata = {
   title: "AirBnb Clone",
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={nunito.className}>
         {/*TODO maybe this is won't be necessary https://www.joshwcomeau.com/react/the-perils-of-rehydration/ https://stackoverflow.com/questions/74022328/how-to-solve-react-hydration-error-in-next-js-when-using-uselocalstorage-and*/}
         <ClientOnly>
+          <ToasterProvider />
           <Navbar />
           <RegisterModal />
         </ClientOnly>

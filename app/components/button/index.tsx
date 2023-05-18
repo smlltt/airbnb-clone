@@ -10,7 +10,7 @@ const buttonStyles = cva(
         primary:
           "bg-gradient-to-r from-rose-500 via-rose-600 to-pink-700 text-white hover:from-rose-400 hover:via-rose-500 hover:to-pink-600",
         secondary:
-          "bg-gray-200 text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-100 focus:ring-gray-500",
+          "bg-gray-200 text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-100",
         danger: "bg-red-500 text-white focus:ring-red-500",
       },
       outline: {
@@ -34,6 +34,11 @@ const buttonStyles = cva(
         intent: "primary",
         outline: true,
         className: "text-rose-500 border-rose-300 border-2",
+      },
+      {
+        intent: "secondary",
+        outline: true,
+        className: "border-black",
       },
       {
         intent: "danger",
