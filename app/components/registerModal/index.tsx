@@ -70,8 +70,8 @@ const RegisterModal: FC = () => {
         <Divider className={"col-span-3"} />
       </div>
       <div className={"space-y-3"}>
-        <SocialAuthButton icon={AiFillGithub} provider={"Github"} />
-        <SocialAuthButton icon={FcGoogle} provider={"Google"} />
+        <SocialAuthButton icon={AiFillGithub} provider={"github"} />
+        <SocialAuthButton icon={FcGoogle} provider={"google"} />
       </div>
       <div
         className={

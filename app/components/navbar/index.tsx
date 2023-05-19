@@ -5,14 +5,13 @@ import Container from "@/app/components/container";
 import Logo from "@/app/components/navbar/Logo";
 import Search from "@/app/components/navbar/Search";
 import UserMenu from "@/app/components/navbar/UserMenu";
-import { User } from "@prisma/client";
+import { SafeUser } from "@/app/types";
 
 interface NavbarProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 }
 
 const Navbar: FC<NavbarProps> = ({ currentUser }) => {
-  console.log({ currentUser });
   return (
     <div className={"fixed shadow-sm bg-white w-full"}>
       <div className={"py-4 border-b-[1px]"}>
@@ -24,7 +23,7 @@ const Navbar: FC<NavbarProps> = ({ currentUser }) => {
           >
             <Logo />
             <Search />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>

@@ -15,6 +15,7 @@ import SocialAuthButton from "@/app/components/socialAuthButton";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
   email: z.string().email().nonempty(REQUIRED_FIELD),
@@ -22,6 +23,7 @@ const schema = z.object({
 });
 
 const LoginModal: FC = () => {
+  const { refresh } = useRouter();
   const { open, toggleLoginModal } = useLoginModal();
   const { toggleRegisterModal } = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +38,13 @@ const LoginModal: FC = () => {
       const res = await signIn("credentials", {
         email,
         password,
+        redirect: false,
       });
+      if (res?.ok) {
+        toast.success("Logged in");
+        toggleLoginModal();
+        refresh();
+      }
       if (res?.error) {
         toast.error(res.error);
       }
@@ -68,8 +76,8 @@ const LoginModal: FC = () => {
         <Divider className={"col-span-3"} />
       </div>
       <div className={"space-y-3"}>
-        <SocialAuthButton icon={AiFillGithub} provider={"Github"} />
-        <SocialAuthButton icon={FcGoogle} provider={"Google"} />
+        <SocialAuthButton icon={AiFillGithub} provider={"github"} />
+        <SocialAuthButton icon={FcGoogle} provider={"google"} />
       </div>
       <div
         className={

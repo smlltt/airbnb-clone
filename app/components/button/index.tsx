@@ -65,7 +65,8 @@ const Button = ({
     <ButtonOrLink
       className={clsx(
         buttonStyles({ intent, fullWidth, outline, size }),
-        className
+        className,
+        props.disabled && "opacity-70"
       )}
       {...props}
     />

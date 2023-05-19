@@ -5,7 +5,7 @@ import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
 
 interface AvatarProps {
-  avatar?: string;
+  avatar?: string | null;
 }
 const Avatar: FC<AvatarProps> = ({ avatar }) => {
   return avatar ? (
