@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, useState } from "react";
-import Modal from "@/app/components/modal";
+import Modal from "../modal";
 import Button from "@/app/components/button";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
