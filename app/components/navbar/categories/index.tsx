@@ -12,9 +12,14 @@ import {
   FaSpaceShuttle,
   FaCity,
   FaPalette,
+  FaGem,
+  FaGlassMartini,
+  FaCampground,
 } from "react-icons/fa";
 import Container from "@/app/components/container";
 import Category from "@/app/components/navbar/categories/Category";
+import { usePathname, useSearchParams } from "next/navigation";
+import routes from "@/app/routes";
 
 export const categories = [
   {
@@ -38,7 +43,7 @@ export const categories = [
     description: "This property is close to a national park!",
   },
   {
-    label: "FaParachuteBox",
+    label: "Extreme sports",
     icon: FaParachuteBox,
     description: "This property has extreme sports facilities",
   },
@@ -67,13 +72,42 @@ export const categories = [
     icon: FaPalette,
     description: "This property will amaze you!",
   },
+  {
+    label: "Luxury",
+    icon: FaGem,
+    description: "This property will amaze you!",
+  },
+  {
+    label: "Camping",
+    icon: FaCampground,
+    description: "This property will amaze you!",
+  },
+  {
+    label: "Party",
+    icon: FaGlassMartini,
+    description: "This property will amaze you!",
+  },
 ];
 const Categories = () => {
+  const params = useSearchParams();
+  const selectedCategory = params?.get("category");
+  const pathname = usePathname();
+  const isHomePage = pathname === routes.home;
+
+  if (!isHomePage) {
+    return null;
+  }
+
   return (
     <Container>
       <div className={"flex justify-between overflow-x-auto pt-8"}>
         {categories.map(({ label, icon }) => (
-          <Category key={label} icon={icon} label={label} />
+          <Category
+            key={label}
+            icon={icon}
+            label={label}
+            selected={label === selectedCategory}
+          />
         ))}
       </div>
     </Container>
