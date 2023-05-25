@@ -6,6 +6,8 @@ import Logo from "@/app/components/navbar/Logo";
 import Search from "@/app/components/navbar/Search";
 import UserMenu from "@/app/components/navbar/UserMenu";
 import { SafeUser } from "@/app/types";
+import Divider from "@/app/components/divider";
+import Categories from "@/app/components/navbar/categories";
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
@@ -13,8 +15,8 @@ interface NavbarProps {
 
 const Navbar: FC<NavbarProps> = ({ currentUser }) => {
   return (
-    <div className={"fixed shadow-sm bg-white w-full"}>
-      <div className={"py-4 border-b-[1px]"}>
+    <div className={"fixed bg-white w-full"}>
+      <div className={"py-4"}>
         <Container>
           <div
             className={
@@ -26,6 +28,8 @@ const Navbar: FC<NavbarProps> = ({ currentUser }) => {
             <UserMenu currentUser={currentUser} />
           </div>
         </Container>
+        <Divider className={"mt-4 hidden md:block"} />
+        <Categories />
       </div>
     </div>
   );

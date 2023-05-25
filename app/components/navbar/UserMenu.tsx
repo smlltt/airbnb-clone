@@ -17,12 +17,10 @@ const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const { toggleRegisterModal } = useRegisterModal();
   const { toggleLoginModal } = useLoginModal();
-  console.log({ currentUser });
   useEffect(() => {
     let handler = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setIsOpen(false);
-        console.log(menuRef.current);
       }
     };
 
