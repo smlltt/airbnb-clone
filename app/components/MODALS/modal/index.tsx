@@ -20,11 +20,7 @@ const Modal: FC<Modal> = ({ open, onClose, title, children }) => {
 
   return (
     <Transition appear show={showModal} as={Fragment}>
-      <Dialog
-        as="div"
-        className="fixed inset-0 z-50 overflow-y-auto mt-28"
-        onClose={onClose}
-      >
+      <Dialog as="div" className="fixed inset-0 z-50  mt-28" onClose={onClose}>
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
             as={Fragment}
@@ -47,17 +43,14 @@ const Modal: FC<Modal> = ({ open, onClose, title, children }) => {
             leaveTo="translate-y-full opacity-0"
           >
             <div className="inline-block w-full max-w-md my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-              <Dialog.Title
-                as="h3"
-                className="text-lg font-medium text-gray-900 p-4"
-              >
-                <div className={"relative justify-center flex"}>
+              <Dialog.Title as="h3" className="text-lg text-gray-900 p-4">
+                <div className={"relative justify-center flex font-bold"}>
                   <IoIosClose
                     size={30}
                     className={"absolute left-0 cursor-pointer"}
                     onClick={onClose}
                   />
-                  <div className={"font-bold"}>{title}</div>
+                  {title}
                 </div>
               </Dialog.Title>
               <Divider />

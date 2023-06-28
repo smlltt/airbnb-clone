@@ -20,6 +20,7 @@ const Category: FC<CategoryProps> = ({ icon: Icon, label, selected }) => {
     if (params) {
       currentQuery = queryString.parse(params.toString());
     }
+
     const updatedQuery: any = {
       ...currentQuery,
       category: label,

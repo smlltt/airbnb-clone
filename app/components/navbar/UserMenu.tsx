@@ -5,7 +5,7 @@ import RoundedXWrapper from "@/app/components/navbar/RoundedXWrapper";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "@/app/components/avatar";
 import MenuItem from "@/app/components/navbar/MenuItem";
-import { useLoginModal, useRegisterModal } from "@/app/hooks";
+import { useLoginModal, useRegisterModal, useRentModal } from "@/app/hooks";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
 
@@ -17,6 +17,7 @@ const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const { toggleRegisterModal } = useRegisterModal();
   const { toggleLoginModal } = useLoginModal();
+  const { toggleRentModal } = useRentModal();
   useEffect(() => {
     let handler = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -31,9 +32,18 @@ const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
     };
   });
 
+  const onRent = () => {
+    if (!currentUser) {
+      return toggleLoginModal();
+    }
+    toggleRentModal();
+  };
+
   return (
     <div className={"hidden md:flex items-center gap-4 font-semibold"}>
-      <div className={"hidden lg:block"}>Airbnb your home</div>
+      <div className={"hidden lg:block cursor-pointer"} onClick={onRent}>
+        Airbnb your home
+      </div>
       <div ref={menuRef}>
         <RoundedXWrapper
           className={"px-4 text-gray-500"}
@@ -63,7 +73,7 @@ const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem label={"My favorites"} onClick={() => {}} />
                 <MenuItem label={"My reservations"} onClick={() => {}} />
                 <MenuItem label={"My properties"} onClick={() => {}} />
-                <MenuItem label={"Airbnb my home"} onClick={() => {}} />
+                <MenuItem label={"Airbnb my home"} onClick={toggleRentModal} />
                 <MenuItem label={"Logout"} onClick={() => signOut()} />
               </>
             )}
